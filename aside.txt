@@ -1,0 +1,95 @@
+void printBinaryDigest(byte (&value)[16]){
+
+    for(int i=0;i<16;i++){
+        std::bitset<8> a(value[i]);
+        std::cout<<a.to_string()<<std::endl;
+    }
+}
+
+void printBinary(std::string value){
+
+    for (std::size_t i = 0; i < value.size(); ++i)
+    {
+        std::cout << std::bitset<8>(value.c_str()[i]) << std::endl;
+    }
+
+}
+
+template<typename T>
+void printBinaryOneLine(T value,bool delim){
+    printBinary(value,"");
+    if(delim){
+        std::cout<<"\n"<<"---------------"<<std::endl;
+    }else{
+        std::cout<<std::endl;
+    }
+}
+
+void printBinaryByLine(std::string value){
+    printBinary(value);
+    std::cout<<"---------------"<<std::endl;
+}
+
+
+-------------------------------------------
+
+    byte digest[ CryptoPP::Weak::MD5::DIGESTSIZE ];
+    byte digest2[ CryptoPP::Weak::MD5::DIGESTSIZE ];
+    byte digest3[ CryptoPP::Weak::MD5::DIGESTSIZE ];
+
+    std::string message = "129";
+
+    CryptoPP::Weak::MD5 hash;
+
+
+    hash.CalculateDigest( digest, (const byte*)message.c_str(), message.length() );
+
+
+    for(int i=0;i<3333;i++){
+
+        hash.CalculateDigest( digest2, digest, 16 );
+        hash.CalculateDigest( digest3, digest2, 16 );
+        hash.CalculateDigest( digest, digest3, 16 );
+
+    }
+
+    CryptoPP::HexEncoder encoder;
+    std::string output;
+
+
+    encoder.Attach( new CryptoPP::StringSink( output ) );
+    encoder.Put( digest, sizeof(digest) );
+    encoder.MessageEnd();
+
+    std::transform(output.begin(), output.end(), output.begin(), [](unsigned char c){ return std::tolower(c); });
+
+    std::cout << output << std::endl;
+
+     helper::printBinaryDigest(digest);
+     std::cout<<"----------------------"<<std::endl;
+
+////test of decoded hash
+////and conversion to digest
+
+    std::string encoded = "da8c2466069eac1b1f4d641f8cb02fed";
+    std::string decoded;
+
+    byte hashToCompare[CryptoPP::Weak::MD5::DIGESTSIZE];
+
+    CryptoPP::HexDecoder decoder;
+
+    decoder.Attach( new CryptoPP::StringSink( decoded ) );
+    decoder.Put( (byte*)encoded.data(), encoded.size() );
+    decoder.MessageEnd();
+
+    for (int j = 0; j <16 ; ++j) {
+        hashToCompare[j]=(byte)decoded[j];
+    }
+//    compare digests
+
+    for (int k = 0; k <16 ; ++k) {
+        if(hashToCompare[k]!=digest[k]){
+            std::cout<<"false"<<std::endl;
+        }
+
+    }
