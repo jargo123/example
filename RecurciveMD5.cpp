@@ -3,7 +3,7 @@
 //
 #include "RecurciveMD5.h"
 
-void RecursiveMD5::calculateHash(std::string& password) {
+bool RecursiveMD5::calculateHash(std::string& password) {
 
     hash.CalculateDigest( digest, (const byte*)password.c_str(), password.length() );
 
@@ -16,9 +16,11 @@ void RecursiveMD5::calculateHash(std::string& password) {
 
     if(RecursiveMD5::hashTrue(digest)){
 
-       std::cout<<"found password "+ password<<std::endl;
-
+        std::cout<<"found password "+ password<<std::endl;
+        return true;
     }
+
+    return false;
 }
 
 bool RecursiveMD5::hashTrue(const byte* calculatedHash) {
@@ -33,6 +35,17 @@ bool RecursiveMD5::hashTrue(const byte* calculatedHash) {
 }
 
 void RecursiveMD5::start() {
+
+    for(auto hash: hashList_){
+
+        currentHash_=hash.get();
+
+        for (auto password: passwordList_){
+            if (calculateHash(password)){
+                break;
+            }
+        }
+    }
 
 }
 

@@ -24,9 +24,9 @@ class RecursiveMD5 final: public IBruteforce{
         int startRange_;
         int endRange_;
 
+        std::vector<std::string>& passwordList_;
         std::vector<std::shared_ptr<byte[]>>& hashList_;
 
-        std::vector<std::string>& passwordList_;
 
     //--------------------used vars------------------------------
         /*
@@ -38,9 +38,9 @@ class RecursiveMD5 final: public IBruteforce{
          * buffers for digest values
          * (we don't want to create unnecessary vars)
          */
-        byte digest[ CryptoPP::Weak1::MD5::DIGESTSIZE ];
-        byte digest2[ CryptoPP::Weak1::MD5::DIGESTSIZE ];
-        byte digest3[ CryptoPP::Weak1::MD5::DIGESTSIZE ];
+        byte digest[ CryptoPP::Weak1::MD5::DIGESTSIZE ]{};
+        byte digest2[ CryptoPP::Weak1::MD5::DIGESTSIZE ]{};
+        byte digest3[ CryptoPP::Weak1::MD5::DIGESTSIZE ]{};
 
         /*
          * instance of MD5 for this class
@@ -51,7 +51,7 @@ class RecursiveMD5 final: public IBruteforce{
          * calculate hash of current password from passwordList
          * no copy inside
          */
-        void calculateHash(std::string& password);
+        bool calculateHash(std::string& password);
 
         /*
          * compares currentHash from hashList with calculated hash
@@ -61,13 +61,16 @@ class RecursiveMD5 final: public IBruteforce{
 
 
     public:
-        RecursiveMD5(int startRange,int endRange): startRange_{startRange},endRange_{endRange}{};
+        RecursiveMD5(int startRange, int endRange,
+                    std::vector<std::shared_ptr<byte[]>> &hashList,
+                    std::vector<std::string> &passwordList)
+                    : startRange_{startRange},
+                    endRange_{endRange},
+                    hashList_(hashList),
+                    passwordList_(passwordList) {};
 
-        void addHashList(std::vector<std::shared_ptr<byte[]>> &hashList) override;
 
-        void addPasswordList(std::vector<std::string> &passwordList) override;
-
-        void start();
+        void start() override ;
 
 };
 
