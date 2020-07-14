@@ -7,7 +7,9 @@
 
 #include <thread>
 
-
+/*
+ * simple thread guard class which joins threads
+ */
 class ThreadGuard {
 
     private:

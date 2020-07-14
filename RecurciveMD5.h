@@ -10,7 +10,6 @@
 #include <crypto++/hex.h>
 #include <vector>
 #include <iostream>
-#define CRYPTOPP_ENABLE_NAMESPACE_WEAK 1
 
 #include "struct.h"
 
@@ -36,7 +35,6 @@ class RecursiveMD5 final: public IBruteforce{
          * this is pointer to value that is owned by shared pointer in hashList
          */
         std::shared_ptr<hashStruct> currentHash_;
-//        byte* currentHash_= nullptr;
 
         /*
          * buffers for digest values
@@ -74,6 +72,9 @@ class RecursiveMD5 final: public IBruteforce{
                     passwordList_(passwordList) {};
 
 
+        /*
+         * start bruteforce
+         */
         void start() override ;
 
 };

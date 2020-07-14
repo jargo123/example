@@ -15,7 +15,9 @@ struct ranges
     int end;
 };
 
-
+/*
+ * calculating dict ranges for bruteforcing based on thread count
+ */
 std::vector<ranges> split(int elements, int parts){
 
     std::vector<ranges> rangeHolder;
@@ -50,10 +52,14 @@ std::vector<ranges> split(int elements, int parts){
 
 }
 
+/*
+ * here we are starting bruteforce algorithm
+ * algorithm switch should be done here
+ */
 void startThread(ranges range, std::vector<std::shared_ptr<hashStruct>> &hashList,std::vector<std::string> &passwordList){
 
-    RecursiveMD5 md5Bruteforce= RecursiveMD5(range.start,range.end,hashList,passwordList);
-    md5Bruteforce.start();
+    RecursiveMD5 Bruteforce= RecursiveMD5(range.start,range.end,hashList,passwordList);
+    Bruteforce.start();
 }
 
 

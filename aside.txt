@@ -93,3 +93,11 @@ void printBinaryByLine(std::string value){
         }
 
     }
+4digits
+ed639398fec9f69e1fa62f9a76e8c37e
+9c4ef284c5097d93aed0ccec262c8410
+1158988292c1509c3547a7455e9b5afd
+0e2ec97a03d9aef4a7da5fcf471a4116
+0ecf18da364a12c14f1cbe88842ab0c5
+a54cd896faa05c195fb06a9a54fdd083
+2f6e4b31aad57e893e87d29011195a71

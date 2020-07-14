@@ -36,7 +36,7 @@ void LoadHash::convertStringToByteArray(std::string &stringHash) {
     decoder.Put( (byte*)stringHash.data(), stringHash.size() );
     decoder.MessageEnd();
 
-    for (int j = 0; j <16 ; ++j) {
+    for (int j = 0; j <BYTE_ARRAY_SIZE; ++j) {
         hashPtr->hash[j]=(byte)decoded[j];
     }
 

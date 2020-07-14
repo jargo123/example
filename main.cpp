@@ -12,20 +12,18 @@
 #include "testFunctions.h"
 #include "LoadHash.h"
 #include "LoadDict.h"
-#include "IBruteforce.h"
 #include "RecurciveMD5.h"
 #include "threadHelper.h"
 #include "ThreadGuard.h"
 
-#define THREAD_COUNT 16
 
 
 
 int main(int argc, char* argv[]) {
 
-    std::string pathToHash="/home/jargo/Documents/pgr/CppProjects/bruteforce_hash/testHash.txt";
+    std::string pathToHash="/home/jargo/Documents/pgr/CppProjects/bruteforce_hash/testHash2.txt";
 //    std::string pathToDict="/home/jargo/Documents/pgr/CppProjects/bruteforce_hash/testPass.txt";
-    std::string pathToDict="/home/jargo/Documents/pgr/CppProjects/bruteforce_hash/6-digits-num.txt";
+    std::string pathToDict="/home/jargo/Documents/pgr/CppProjects/bruteforce_hash/4-digits-num.txt";
 
     LoadHash hashHolder= LoadHash(pathToHash);
     hashHolder.loadFile();
@@ -54,7 +52,11 @@ int main(int argc, char* argv[]) {
 
     for(int i=0;i<THREAD_COUNT;i++){
 
-        threadHolder.emplace_back( std::thread (startThread,rangesHolder[i],std::ref(hashHolder.hashList_), std::ref(dictHolder.passwordList_)) );
+        threadHolder.emplace_back( std::thread (startThread,
+                                                rangesHolder[i],
+                                                std::ref(hashHolder.hashList_),
+                                                std::ref(dictHolder.passwordList_)
+                                                ));
 
     }
 

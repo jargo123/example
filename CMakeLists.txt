@@ -7,6 +7,6 @@ find_library(CRYPTO_PP crypto++)
 
 #add_executable(bruteforce_hash main.cpp  LoadHash.cpp  LoadDict.cpp )
 #add_executable(bruteforce_hash main.cpp helperFunctions.h IBruteforce.h RecurciveMD5.h RecurciveMD5.cpp LoadHash.cpp LoadHash.h LoadDict.cpp LoadDict.h testFunctions.h)
-add_executable(bruteforce_hash main.cpp RecurciveMD5.cpp LoadHash.cpp LoadDict.cpp struct.h)
+add_executable(bruteforce_hash main.cpp RecurciveMD5.cpp LoadHash.cpp LoadDict.cpp struct.h global_difines.h)
 
 target_link_libraries(bruteforce_hash PRIVATE "${CRYPTO_PP}" pthread)

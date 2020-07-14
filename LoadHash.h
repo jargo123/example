@@ -32,6 +32,10 @@ class LoadHash {
 
         void loadFile();
 
+       /*
+        * convert hex representation of hash to byte[]
+        * should be cipher agnostic
+        */
         void convertStringToByteArray(std::string& stringHash);
 
 };

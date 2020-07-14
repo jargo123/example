@@ -27,7 +27,7 @@ bool RecursiveMD5::calculateHash(std::string& password) {
 
 bool RecursiveMD5::hashTrue(const byte* calculatedHash) {
 
-    for (int k = 0; k <16 ; ++k) {
+    for (int k = 0; k < CryptoPP::Weak1::MD5::DIGESTSIZE ; ++k) {
         if(calculatedHash[k] != currentHash_->hash[k]){
             return false;
         }

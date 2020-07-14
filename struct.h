@@ -5,10 +5,17 @@
 #ifndef BRUTEFORCE_HASH_STRUCT_H
 #define BRUTEFORCE_HASH_STRUCT_H
 
+#include "global_difines.h"
+
 #include <crypto++/config.h>
 
+/*
+ * struct for holding:
+ *      hash in form of byte array of size defined in global_define.h
+ *      bool found for threads to check if any thread found password
+ */
 struct hashStruct{
-    byte hash[16];
+    byte hash[BYTE_ARRAY_SIZE];
     bool found;
 };
 
