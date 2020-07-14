@@ -28,27 +28,37 @@ bool RecursiveMD5::calculateHash(std::string& password) {
 bool RecursiveMD5::hashTrue(const byte* calculatedHash) {
 
     for (int k = 0; k <16 ; ++k) {
-        if(calculatedHash[k] != currentHash_[k]){
+        if(calculatedHash[k] != currentHash_->hash[k]){
             return false;
         }
     }
+    currentHash_->found= true;
     return true;
 
 }
 
 void RecursiveMD5::start() {
 
-    std::cout<<"this id: "<<std::this_thread::get_id()<<std::endl;
     for(auto& hash: hashList_){
 
-        currentHash_=hash.get();
-        std::cout<<"currentHash addr: "<<std::addressof(currentHash_)<<std::endl;
-        std::cout<<"password list addr: "<<std::addressof(passwordList_)<<std::endl;
-        std::cout<<"hash list addr: "<<std::addressof(hashList_)<<std::endl;
+        currentHash_=hash;
 
 
         for (int i = startRange_; i <endRange_ ; ++i) {
-            if (calculateHash(passwordList_[i])){
+            //maybe have corresponding field in hashlist with bool value
+            //i.e. at worst few more loops, only one thread can find value so it doesn' realy matter if it is
+            //atomic or not
+            //
+            //i need to break this loop if some other thread found password
+
+            //better to have array of atomics that passed to threads as argument by reference, array should be the same
+            //length as hashlist, so bool coresponds to hashlist;
+            if(!hash->found){
+                if (calculateHash(passwordList_[i])){
+                    break;
+                }
+            } else{
+//                std::cout<<std::to_string(i)<<std::endl;
                 break;
             }
 

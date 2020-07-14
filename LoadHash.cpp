@@ -28,7 +28,7 @@ void LoadHash::convertStringToByteArray(std::string &stringHash) {
 
     std::string decoded="";
 
-    std::shared_ptr<byte[]> hash(new byte[16]);
+    std::shared_ptr<hashStruct> hashPtr=std::make_shared<hashStruct>();
 
     CryptoPP::HexDecoder decoder;
 
@@ -37,10 +37,12 @@ void LoadHash::convertStringToByteArray(std::string &stringHash) {
     decoder.MessageEnd();
 
     for (int j = 0; j <16 ; ++j) {
-        hash[j]=(byte)decoded[j];
+        hashPtr->hash[j]=(byte)decoded[j];
     }
 
-    hashList_.emplace_back(hash);
+    hashPtr->found= false;
+
+    hashList_.emplace_back(hashPtr);
 
 
 }

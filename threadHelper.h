@@ -50,7 +50,7 @@ std::vector<ranges> split(int elements, int parts){
 
 }
 
-void startThread(ranges range, std::vector<std::shared_ptr<byte[]>> &hashList,std::vector<std::string> &passwordList){
+void startThread(ranges range, std::vector<std::shared_ptr<hashStruct>> &hashList,std::vector<std::string> &passwordList){
 
     RecursiveMD5 md5Bruteforce= RecursiveMD5(range.start,range.end,hashList,passwordList);
     md5Bruteforce.start();

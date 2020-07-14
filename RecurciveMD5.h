@@ -12,6 +12,8 @@
 #include <iostream>
 #define CRYPTOPP_ENABLE_NAMESPACE_WEAK 1
 
+#include "struct.h"
+
 class RecursiveMD5 final: public IBruteforce{
 
     private:
@@ -25,7 +27,7 @@ class RecursiveMD5 final: public IBruteforce{
         int endRange_;
 
         std::vector<std::string>& passwordList_;
-        std::vector<std::shared_ptr<byte[]>>& hashList_;
+        std::vector<std::shared_ptr<hashStruct>>& hashList_;
 
 
     //--------------------used vars------------------------------
@@ -33,7 +35,8 @@ class RecursiveMD5 final: public IBruteforce{
          * current hash that we bruteforcing
          * this is pointer to value that is owned by shared pointer in hashList
          */
-        byte* currentHash_= nullptr;
+        std::shared_ptr<hashStruct> currentHash_;
+//        byte* currentHash_= nullptr;
 
         /*
          * buffers for digest values
@@ -63,7 +66,7 @@ class RecursiveMD5 final: public IBruteforce{
 
     public:
         RecursiveMD5(int startRange, int endRange,
-                    std::vector<std::shared_ptr<byte[]>> &hashList,
+                    std::vector<std::shared_ptr<hashStruct>> &hashList,
                     std::vector<std::string> &passwordList)
                     : startRange_{startRange},
                     endRange_{endRange},

@@ -15,6 +15,8 @@
 #include <crypto++/config.h>
 #include <crypto++/hex.h>
 
+#include "struct.h"
+
 
 class LoadHash {
     public:
@@ -22,7 +24,7 @@ class LoadHash {
          * here we hold hashes to crack
          * shared by all threads
          */
-        std::vector<std::shared_ptr<byte[]>> hashList_;
+        std::vector<std::shared_ptr<hashStruct>> hashList_;
 
         std::string filename_;
 

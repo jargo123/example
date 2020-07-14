@@ -15,14 +15,16 @@
 #include <string>
 #include <memory>
 
+#include "struct.h"
+
 namespace test{
-    std::string getDecodedHash(std::shared_ptr<byte[]> hash){
+    std::string getDecodedHash(std::shared_ptr<hashStruct> hash){
 
         CryptoPP::HexEncoder encoder;
         std::string output;
 
         encoder.Attach( new CryptoPP::StringSink( output ) );
-        encoder.Put( hash.get(), sizeof(hash.get())*2 );
+        encoder.Put( hash.get()->hash, sizeof(hash.get())*2 );
         encoder.MessageEnd();
 
         return std::move(output);
