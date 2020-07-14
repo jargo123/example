@@ -20,6 +20,7 @@ class LoadHash {
     public:
         /*
          * here we hold hashes to crack
+         * shared by all threads
          */
         std::vector<std::shared_ptr<byte[]>> hashList_;
 

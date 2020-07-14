@@ -20,7 +20,8 @@
 class LoadDict {
     public:
         /*
-         * here we hold hashes to crack
+         * here we hold passwords
+         * this vector is shared by all threads
          */
         std::vector<std::string> passwordList_;
 

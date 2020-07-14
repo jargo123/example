@@ -17,8 +17,6 @@ void LoadHash::loadFile() {
         while(getline(newfile, tmp)){ //read data from file object and put it into string.
 
             LoadHash::convertStringToByteArray(tmp);
-
-//            cout << tp << "\n"; //print the data of the string
         }
 
         newfile.close(); //close the file object.

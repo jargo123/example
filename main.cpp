@@ -7,12 +7,17 @@
 #include <iostream>
 #include <string>
 
+
 #include "helperFunctions.h"
 #include "testFunctions.h"
 #include "LoadHash.h"
 #include "LoadDict.h"
 #include "IBruteforce.h"
 #include "RecurciveMD5.h"
+#include "threadHelper.h"
+#include "ThreadGuard.h"
+
+#define THREAD_COUNT 4
 
 
 
@@ -38,9 +43,23 @@ int main(int argc, char* argv[]) {
     for(auto pass: dictHolder.passwordList_){
         std::cout<<pass<<"\n";
     }
+    std::cout<<"Size: "<<dictHolder.passwordList_.size()<<"\n";
 
-    RecursiveMD5 md5Bruteforce= RecursiveMD5(0,9,hashHolder.hashList_,dictHolder.passwordList_);
-    md5Bruteforce.start();
+    std::vector<ranges> rangesHolder= split(dictHolder.passwordList_.size(),THREAD_COUNT);
+
+    std::vector<std::thread> threadHolder;
+    threadHolder.reserve(THREAD_COUNT);
+
+    for(int i=0;i<THREAD_COUNT;i++){
+
+        threadHolder.emplace_back( std::thread (startThread,rangesHolder[i],std::ref(hashHolder.hashList_), std::ref(dictHolder.passwordList_)) );
+
+    }
+
+    for (auto& item : threadHolder){
+        ThreadGuard guard(item);
+    }
+
 
 
 }

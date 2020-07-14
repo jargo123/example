@@ -31,6 +31,7 @@ class RecursiveMD5 final: public IBruteforce{
     //--------------------used vars------------------------------
         /*
          * current hash that we bruteforcing
+         * this is pointer to value that is owned by shared pointer in hashList
          */
         byte* currentHash_= nullptr;
 

@@ -2,6 +2,8 @@
 // Created by jargo on 7/13/20.
 //
 #include "RecurciveMD5.h"
+#include <thread>
+#include <string>
 
 bool RecursiveMD5::calculateHash(std::string& password) {
 
@@ -16,7 +18,7 @@ bool RecursiveMD5::calculateHash(std::string& password) {
 
     if(RecursiveMD5::hashTrue(digest)){
 
-        std::cout<<"found password "+ password<<std::endl;
+        std::cout<<"found password "<<password<<" id: "<<std::this_thread::get_id()<<std::endl;
         return true;
     }
 
@@ -36,14 +38,20 @@ bool RecursiveMD5::hashTrue(const byte* calculatedHash) {
 
 void RecursiveMD5::start() {
 
-    for(auto hash: hashList_){
+    std::cout<<"this id: "<<std::this_thread::get_id()<<std::endl;
+    for(auto& hash: hashList_){
 
         currentHash_=hash.get();
+        std::cout<<"currentHash addr: "<<std::addressof(currentHash_)<<std::endl;
+        std::cout<<"password list addr: "<<std::addressof(passwordList_)<<std::endl;
+        std::cout<<"hash list addr: "<<std::addressof(hashList_)<<std::endl;
 
-        for (auto password: passwordList_){
-            if (calculateHash(password)){
+
+        for (int i = startRange_; i <endRange_ ; ++i) {
+            if (calculateHash(passwordList_[i])){
                 break;
             }
+
         }
     }
 
