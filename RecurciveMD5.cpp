@@ -49,7 +49,7 @@ void RecursiveMD5::start() {
             //i.e. at worst few more loops, only one thread can find value so it doesn' realy matter if it is
             //atomic or not
             //
-            //i need to break this loop if some other thread found password
+            //i need to break this loop if some other thread has the found password
 
             //better to have array of atomics that passed to threads as argument by reference, array should be the same
             //length as hashlist, so bool coresponds to hashlist;
